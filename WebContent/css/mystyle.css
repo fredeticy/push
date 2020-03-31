@@ -1,0 +1,142 @@
+body,html,div{ padding:0; margin:0;}
+body{
+	background-color:#eee;
+}
+.container{
+	height:100%;
+	background:#eee;
+	text-align:center;
+}
+.view_container{
+	margin-top:10px;
+	margin-left:30%;
+	padding:30px;
+	border-radius:10px;
+	border:1px solid #CCCCCC;
+	background-color:#fff;
+	min-height:600px;
+	width:448px;
+	z-index:800;
+}
+.center{
+	
+}
+.input{
+	margin:10px auto;
+	
+}
+.input_container{
+	margin-top:20px;
+}
+.main-footer{
+	position:fixed;
+	left:0;
+	bottom:0px;
+	line-height:0.5;
+	width:100%;
+	border-top:1px solid #dddddd;
+	height:60px;
+	background-color:#eee;
+	z-index:1080;
+}
+.top_bar{
+	margin:0 auto;
+}
+.top_bar_title{
+	margin-top:20px;
+}
+.top_bar_text{
+	margin-top:10px;
+	font-size:26px;
+	font-family:"黑体";
+	font-weight:500;
+}
+span{
+
+}
+input{
+	margin:0 auto;
+	padding:2px 5px;
+	border:1px solid #cdcddd;
+	border-radius:4px;
+	box-shadow:0px 0px 1px #eee;
+	width:60%;
+	font-size:12px;
+	height:30px;
+}
+input:active{
+}
+.view_button button{
+	background-color:#1a73e8;
+	border-radius:5px;
+	border:1px solid transparent;
+	width:88px;
+	height:33px
+}
+
+
+span.button_text{
+	color:white;
+	display:block;
+}
+footer{
+	padding:1px 10px;
+	text-align:start;
+}
+.btn{
+	border-radius:3px;
+	display:inline-block;
+	padding:6px 12px;
+	font-weight:400;
+	font-size:14px;
+	text-align:center;
+	color:#fff;
+	margin-bottom:0;
+    box-shadow: none;
+    border: 1px solid transparent;
+}
+.btn-warning{
+	background-color: #f0ad4e;
+    border-color: #eea236;
+    color:#fff;
+}
+.btn-danger{
+	color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+.btn-xs{
+	padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.btn-primary{
+	background-color: #3c8dbc;
+    border-color: #367fa9;
+    outline:none;
+}
+
+.btn-primary:hover{
+	color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+.btn-primary:active{
+	color: #fff;
+    background-color: #204d74;
+    border-color: #122b40;
+}
+header{
+	height:50px;
+	width:100%;
+	background-color:#f8f8f8;
+}
+.header-text{
+	float:left;
+	padding:5px 30px;
+	font-size:27px;
+	color:#777;
+	text-weight:800;
+	text-shadow:0px 0px 3px #eee;
+}

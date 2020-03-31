@@ -1,0 +1,33 @@
+h2{
+	display:block;
+	font-size:18px;
+	font-weight:normal;
+	border-bottom:1px solid #eee;
+	margin-left:-10px;
+	margin-right:-10px;
+	border-radius:3px;
+	padding:6px 12px;
+}
+label{
+	display:block;
+	margin:20px 12px;
+	font-weight:700;
+}
+input{
+	margin:10px 12px;
+	padding:6px 12px;
+	border-radius:1px;
+	display:block;
+	min-width:550px;
+	font-family:'Source Sans Pro',sans-serif;
+}
+input[readonly]{
+	background-color:#eee;
+	
+}
+input[readonly]:focus{
+	outline:none;
+}
+#footerbutton{
+	margin:10px 12px;
+}

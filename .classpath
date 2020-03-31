@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_25">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/aspectj-1.8.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/aspectjweaver-1.8.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/batik-all-1.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/cglib-nodep-2.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/commons-io-2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/commons-pool-1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/ezmorph-1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/fluent-hc-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/httpclient-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/httpclient-cache-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/httpclient-win-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/httpcore-4.4.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/httpmime-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/jackson-all-1.9.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/jackson-annotations-2.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/jackson-core-2.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/jackson-core-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/jackson-databind-2.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/jackson-mapper-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/json-lib-2.2.3-jdk15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/mybatis-3.2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/mybatis-spring-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/mysql-connector-java-5.1.20-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/mysql-connector-java-5.1.26-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/pagehelper-3.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/pdf-transcoder.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-examples-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-excelant-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-ooxml-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-ooxml-schemas-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-scratchpad-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/slf4j-log4j12-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-aop-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-aspects-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-beans-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-context-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-context-support-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-core-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-expression-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-instrument-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-instrument-tomcat-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-jdbc-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-jms-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-messaging-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-orm-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-oxm-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-test-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-tx-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-web-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-webmvc-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-webmvc-portlet-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/spring-websocket-4.2.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/xml-apis-ext.jar"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/xmlgraphics-commons-1.4.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
