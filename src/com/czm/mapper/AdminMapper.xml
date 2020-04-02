@@ -51,22 +51,78 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	from message where id = #{id};
   </select>
   
-  <update id='editUser' parameterType="User">
+  <select id="getUserByUserid" resultType="User">
+  	select * from user where userid=#{userid};
+  </select>
+  
+  <select id="getRoleByType" resultType="Role">
+  	select * from role where type=#{type};
+  </select>
+  
+  <select id="getMsgBytitle" resultType="Message">
+  	select * from message where title=#{title};
+  </select>
+  
+  <select id="getUserBySearch" resultType="User">
+   <bind name="user_id" value="'%' + userid + '%'"/>
+    select 
+	<include refid="user_list"></include>
+	 from user where userid like #{user_id};
+  </select>
+  
+  <select id="getRoleBySearch" resultType="Role">
+   <bind name="role_type" value="'%' + type + '%'"/>
+    select * from role where type like #{role_type};
+  </select>
+  
+  <select id="getMsgBySearch" resultType="Message">
+   <bind name="msg_title" value="'%' + title + '%'"/>
+    select * from message where title like #{msg_title};
+  </select>
+  
+  <update id="editUser" parameterType="User">
   	update user
   	set pwd = #{user.pwd},roleid = #{user.roleid},phonenumber = #{user.phonenumber},
   	email = #{user.email}, address = #{user.address}
   	where userid = #{user.userid};
   </update>
 	
-	<update id='editRole' parameterType="Role">
+	<update id="editRole" parameterType="Role">
   	update role
   	set type = #{role.type}, data = #{role.type} 
   	where id = #{role.id};
   </update>
   
-  <update id='editMsg' parameterType="Message">
+  <update id="editMsg" parameterType="Message">
   	update message
   	set  title= #{msg.title},  content= #{msg.content},  date = #{msg.date}
   	where id = #{msg.id};
   </update>
+  
+  <insert id="addUser" parameterType="User">
+    insert into user(userid,pwd,roleid,phonenumber,email,address)
+    values(#{user.userid},#{user.pwd},#{user.roleid},#{user.phonenumber},#{user.email},#{user.address});
+  </insert>
+  
+  <insert id="addRole" parameterType="Role">
+    insert into role(type,date)
+    values(#{role.type},#{role.date});
+  </insert>
+  
+  <insert id="addMsg" parameterType="Message">
+    insert into message(title,content,date,createrid)
+    values(#{msg.title},#{msg.content},#{msg.date},#{msg.createrid}); 
+  </insert>
+  
+  <delete id="deleteUser">
+    delete from user where id = #{id};
+  </delete>
+  
+  <delete id="deleteRole">
+    delete from role where id = #{id};
+  </delete>
+  
+  <delete id="deleteMsg">
+    delete from message where id = #{id};
+  </delete>
 </mapper>

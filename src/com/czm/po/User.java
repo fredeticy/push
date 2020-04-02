@@ -50,5 +50,10 @@ public class User {
 	public void setRoleid(Integer roleid) {
 		this.roleid = roleid;
 	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userid=" + userid + ", pwd=" + pwd + ", roleid=" + roleid + ", phonenumber="
+				+ phonenumber + ", email=" + email + ", address=" + address + "]";
+	}
 	
 }

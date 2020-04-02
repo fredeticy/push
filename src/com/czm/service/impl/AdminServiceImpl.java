@@ -35,23 +35,8 @@ public class AdminServiceImpl implements AdminService{
 		return adminMapper.getAllUsers();
 	}
 
-	@Override
-	public Boolean addUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
-	@Override
-	public Boolean deleteUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean setUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Object> getAllRoles() {
@@ -99,4 +84,75 @@ public class AdminServiceImpl implements AdminService{
 		// TODO Auto-generated method stub
 		adminMapper.editMsg(msg);
 	}
+
+	@Override
+	public boolean addUser(User user) {
+		// TODO Auto-generated method stub
+		User u = (User)adminMapper.getUserByUserid(user.getUserid());
+		if(u == null){
+			adminMapper.addUser(user);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void deleteUser(Integer id) {
+		// TODO Auto-generated method stub
+		adminMapper.deleteUser(id);
+	}
+	
+	@Override
+	public boolean addRole(Role role) {
+		// TODO Auto-generated method stub
+		Role r = (Role)adminMapper.getRoleByType(role.getType());
+		if(r == null){
+			adminMapper.addRole(role);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void deleteRole(Integer id) {
+		// TODO Auto-generated method stub
+		adminMapper.deleteRole(id);
+	}
+
+	@Override
+	public boolean addMsg(Message msg) {
+		// TODO Auto-generated method stub
+		Message m = (Message)adminMapper.getMsgByTitle(msg.getTitle());
+		if(m == null){
+			adminMapper.addMsg(msg);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void deleteMsg(Integer id) {
+		// TODO Auto-generated method stub
+		adminMapper.deleteMsg(id);
+	}
+
+	@Override
+	public List<Object> getUserBySearch(String userid) {
+		// TODO Auto-generated method stub
+		return adminMapper.getUserBySearch(userid);
+	}
+
+	@Override
+	public List<Object> getRoleBySearch(String type) {
+		// TODO Auto-generated method stub
+		return adminMapper.getRoleBySearch(type);
+	}
+
+	@Override
+	public List<Object> getMsgBySearch(String title) {
+		// TODO Auto-generated method stub
+		return adminMapper.getMsgBySearch(title);
+	}
+
+
 }

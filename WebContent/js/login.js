@@ -1,21 +1,13 @@
+$(document).keydown(function(){
+		 if(event.keyCode == 13){
+			    login();
+			}
+	 })
 
- $(document).keydown(function(){
-	 if(event.keyCode == 13){
-		    login();
-		}
- })
  
 function login(){
-	if (window.XMLHttpRequest) 
-	  {// code for IE7+, Firefox, Chrome, Opera, Safari
-	     xmlhttp=new XMLHttpRequest(); 
-	  } 
-	else {// code for IE6, IE5 
-	   xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); 
-	} 
-	xmlhttp.open("post", "login.do", true);
-	userid=document.getElementById("userid").value;
-	pwd=document.getElementById("pwd").value;
+	userid=$("#userid").val();
+	pwd=$('#pwd').val();
 	if(userid == ""||userid == null){
 		alert('用户名不能为空');
 		return ;
@@ -24,32 +16,40 @@ function login(){
 		alert('密码不能为空');
 		return ;
 	}
-		
-	 xmlhttp.onreadystatechange=function() 
-	 {    
-		 
-		 if (xmlhttp.readyState==4 && xmlhttp.status==200) 
-	     { 
-			 
-			 json = eval("("+xmlhttp.responseText+")");
-			 if("success" != json.msg)
-				 {
-				 document.getElementById("pwd").value="";
-				 }
-			else {
-				if(json.roleid == "1")
-					window.location.href = "admin.html";
-				else if(json.roleid == "2"){
-					window.location.href = "user.html";
+	$.ajax({
+		type:'post',
+		data:{
+			'userid':userid,
+			'pwd':pwd
+		},
+		timeout:4000,
+		contentType:"application/x-www-form-urlencoded;charset=utf-8",
+		url:'login.do',
+		success:function(data){
+			for(var i=0;i<10;i++)
+				{
+				
+				console.log(i);
 				}
+				
+			if("success" != data.msg){
+				alert(data.msg);
+				$("#pwd").val("");
 			}
-				 
-		 }
-	     } 	
-	 
-	 xmlhttp.setRequestHeader("Content-type",
-	 "application/x-www-form-urlencoded"); 
-
-	 
-xmlhttp.send("userid="+userid+"&pwd="+pwd);
+			else {
+			if(data.roleid == "1")
+				window.location.href = "admin.html?type=user";
+			else if(data.roleid == "2")
+				window.location.href = "user.html";
+			}
+		},
+		error:function(data){
+			for(var i=100;i>90;i--)
+			{
+			
+			console.log(i);
+			}
+			alert('登录错误');
+		},
+	})	
 }

@@ -2,6 +2,12 @@ package com.czm.vo;
 import com.czm.po.User;
 
 public class UserVO {
+	@Override
+	public String toString() {
+		if(user == null)
+			return "UserVO [ " + "msg=" + msg + "]";
+		return "UserVO [user=" + user.toString() + ", msg=" + msg + "]";
+	}
 	private User user;
 	public UserVO(User user) {
 		// TODO Auto-generated constructor stub

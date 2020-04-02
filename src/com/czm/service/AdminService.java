@@ -14,9 +14,16 @@ import com.czm.vo.PageInfo;
 public interface AdminService {
 //	public List<Object> getAllUsers(PageInfo pageInfo);
 	public List<Object> getAllUsers();
-	public Boolean addUser();
-	public Boolean deleteUser();
-	public Boolean setUser();
+	public boolean addUser(User user);
+	public void deleteUser(Integer id);
+
+	public boolean addRole(Role role);
+	public void deleteRole(Integer id);
+	
+	public boolean addMsg(Message msg);
+	public void deleteMsg(Integer id);
+	
+	
 	public List<Object> getAllRoles();
 	public List<Object> getAllMsg();
 	public List<Object> getUserById(Integer id);
@@ -25,4 +32,8 @@ public interface AdminService {
 	public void editUser(User user);
 	public void editRole(Role role);
 	public void editMsg(Message msg);
+	
+	public List<Object> getUserBySearch(String userid);
+	public List<Object> getRoleBySearch(String type);
+	public List<Object> getMsgBySearch(String title);
 }

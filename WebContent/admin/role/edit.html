@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="../../css/admin.css"> 
 <link rel="stylesheet" type="text/css" href="../../css/edit.css"> 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>角色编辑</title>
 </head>
 <body>
 <div>
@@ -31,10 +31,10 @@
            
         </li>
         <li class="sidebar-header"><span>MAIN NAVIGATION</span></li>
-        <li><a href="/admin.html?type=msg" id="user"><span>用户</span></a></li>
+        <li><a href="/admin.html?type=user" id="user"><span>用户</span></a></li>
         <li><a href="/admin.html?type=role" id="role"><span>角色</span></a></li>
         <li><a href="/admin.html?type=msg" id="msg"><span>消息</span></a></li>
-        <li><a href="/"><span>登出</span></a></li>
+        <li><a href="/logout.do"><span>登出</span></a></li>
         
       </ul>
     </div>
@@ -43,28 +43,20 @@
    <div class="content">
     <section class="content-header">
      <h1 id="content_title">
-     	用户<small>编辑</small>
+     	角色<small>编辑</small>
      </h1>
     </section>
     <div class="box">
     <div class="box-header">
-      <h2>用户编辑</h2>
+      <h2>角色编辑</h2>
       
      </div>
         <div class="box-body">
         
-         <label>用户名</label>
-          <input id='userid' name='username' placeholder='用户名' readonly='readonly'/>
-         <label>密码</label>
-          <input id='pwd' name='pwd' placeholder='密码'/>
-         <label>角色</label> 
-          <input id='roleid' name='role' placeholder='角色'/>
-         <label>手机号</label> 
-          <input id='phonenumber' name='phonenumber' placeholder='手机号'/>
-         <label>邮箱</label> 
-          <input id='email' name='email' placeholder='邮箱'/>
-         <label>地址</label> 
-          <input id='address' name='address' placeholder='地址'/>
+       	 <label>角色类型</label>
+          <input id='type' name='type'/>
+         <label>创建日期</label> 
+          <input id='date' name='date'/>
           <button class='btn btn-primary' id='footerbutton'>提交</button>
         </div>
         <script>
@@ -81,8 +73,7 @@
         		url:'/admin/role/edit.do',
         		data:param,
         		success:function(data){
-        			console.log(data);
-        			setData(data);
+        			setData(data[0]);
         		},
         		error:function(data){
         			
@@ -90,19 +81,42 @@
         	})
         })
         function setData(data){
-        	$('#userid').html(data.userid);
-        	$('#pwd').html(data.pwd);
-        	let rolename = '';
-        	if(data.roleid == '1'){
-        		rolename = '管理员'
-        	}else if(data.roleid == '2'){
-        		rolename = '普通用户'
+        	let type = '';
+        	if(data.id == '1'){
+        		type = '管理员'
+        	}else if(data.id == '2'){
+        		type = '普通用户'
         	}
-        	$('#roleid').html(rolename);
-        	$('#phonenumber').html(data.phonenumber);
-        	$('#email').html(data.email);
-        	$('#address').html(data.address);
+        	$('#type').val(type);
+        	$('#date').val(data.type);
         }
+        
+        $('#footerbutton').click(function(){
+        	if(!confirm('确认提交修改吗?'))
+        		return ;
+        	let id = getParam('id');
+        	let type = $('#type').val();
+        	let date = $('#date').val();
+        	let param = {
+        			'id':id,
+        			'type':type,
+        			'date':date
+        	};
+        	$.ajax({
+        		type:'post',
+        		contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+    			url:'/admin/user/editrole.do',
+    			data:param,
+        		success:function(data){
+        			alert('修改成功');
+        			window.location.href = "/admin.html?type=role";
+        		},
+        		error:function(data){
+        			alert('修改失败');
+        			window.location.href = "/admin.html?type=role";
+        		}
+        	})	
+        })  
         </script>
         
       </div>

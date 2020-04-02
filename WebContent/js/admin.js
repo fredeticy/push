@@ -1,35 +1,4 @@
-function setTbody(){
-	
-}
 
-function ajaxGetList(id){
-	if(id == "user"){
-		
-	}else if(id == "role"){
-		
-	}else if(id == "msg"){
-		
-	}
-	
-}
-/*function ajaxGetUserList(){
-	$.ajax({
-		type:"get",
-		url:"/admin/user/list",
-		dataType:"json",
-		data:{
-			pageNum:
-			pageSize:
-		},
-		success: function(data){
-			
-		},
-		error:function(data){
-			
-		}
-	
-	})
-}*/
 $(function(){
 	var type = 'type';
 	var reg = new RegExp("(^|&)"+ type +"=([^&]*)(&|$)"); 
@@ -100,6 +69,13 @@ function settbody(data,id){
 			
 			if(val==null||val=="")
 				return true;
+			if(key == 'roleid'){
+				if(val == '1')
+					html += "<td>" + "管理员" + "</td>";
+				else 
+					html += "<td>" + "普通用户" + "</td>";
+				return true;
+			}
 			html += "<td>" + val + "</td>";
 		})
 		var button = setButton(id,value.id);
@@ -128,20 +104,148 @@ function getData(id){
 		type:"get",
 		url:"/admin/" + id + "/list.do",
 		success:function(data){
-			$('#paginate').pagination({
-				dataSource:data,
-				callback:function(data,pagination){
-					console.log(data)
-					var thead = setthead(id);
-					var tbody = settbody(data,id);
-					var content_title = setContentTitle(id);
-					$('#content_title').html(content_title);
-					$('#thead').html(thead);
-					$('#tbody').html(tbody);
-				}
-			})
+			renderData(data,id);
 		}
 	})
 	
 }
+function getParam(id){
+	var reg = new RegExp("(^|&)"+ id +"=([^&]*)(&|$)"); 
+		var r = window.location.search.substr(1).match(reg); 
+		if (r!=null) return unescape(r[2]); return null; 
+}
+$('#add_data').click(function(){
+	let id = getParam('type');
+	console.log(id);
+	if(id == 'user')
+		window.location.href="/admin/user/add.html";
+	else if(id == 'role')
+		window.location.href="/admin/role/add.html";
+	else if(id == 'msg')
+		window.location.href="/admin/msg/add.html";
+})
 
+function deleteUser(id){
+	if(!confirm('确认要删除该用户吗?'))
+		return ;
+	$.ajax({
+		type:'post',
+		url:'/admin/user/delete.do',
+		contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+		data:{
+			'id':id
+		},
+		success:function(data){
+			alert('删除成功');
+			window.location.href ="/admin.html?type=user";
+		},
+		error:function(data){
+			alert('删除失败');
+		}
+	})
+}
+
+function deleteRole(id){
+	if(!confirm('确认要删除该角色吗?'))
+		return ;
+	$.ajax({
+		type:'post',
+		url:'/admin/role/delete.do',
+		contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+		data:{
+			'id':id
+		},
+		success:function(data){
+			alert('删除成功');
+			window.location.href ="/admin.html?type=user";
+		},
+		error:function(data){
+			alert('删除失败');
+		}
+	})
+}
+
+function deleteMsg(id){
+	if(!confirm('确认要删除该消息吗?'))
+		return ;
+	$.ajax({
+		type:'post',
+		url:'/admin/msg/delete.do',
+		contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+		data:{
+			'id':id
+		},
+		success:function(data){
+			alert('删除成功');
+			window.location.href ="/admin.html?type=user";
+		},
+		error:function(data){
+			alert('删除失败');
+		}
+	})
+}
+$(function(){
+	type = getParam('type');
+	if(type == 'user')
+		$('#search').attr('placeholder','用户名');
+	else if(type == 'role')
+		$('#search').attr('placeholder','类型');
+	else if(type == 'msg')
+		$('#search').attr('placeholder','标题');
+})
+$('#searchButton').click(function(){
+	type = getParam('type');
+	var url = '';
+	let val = $('#search').val();
+	var pdata ={};
+	if(type == 'user'){
+		url = "/admin/user/search.do";
+		pdata = {'userid':val};
+	}
+	else if(type == 'role'){
+		url = "/admin/role/search.do";
+		pdata = {'type':val};
+	}
+	else if(type == 'msg'){
+		url = "/admin/msg/search.do";
+		pdata = {'title':val};
+	}	
+	if(val == "")
+		return ;
+	$.ajax({
+		type:'post',
+		contentType:'application/x-www-form-urlencoded;charset=utf-8',
+		url:url,
+		data:pdata,
+		success:function(data){
+			if(data == '')
+				$('#tbody').html("");
+			let id = type;
+			renderData(data,id);
+		},
+		error:function(data){
+			
+		}
+	})
+})
+function renderData(data,id){
+	$('#paginate').pagination({
+		dataSource:data,
+		callback:function(data,pagination){
+			console.log(data)
+			var thead = setthead(id);
+			var tbody = settbody(data,id);
+			var content_title = setContentTitle(id);
+			$('#content_title').html(content_title);
+			$('#thead').html(thead);
+			$('#tbody').html(tbody);
+		}
+	})
+}
+$('#search').focus(function(){
+	$(document).keydown(function(){
+	 if(event.keyCode == 13){
+		    $('#searchButton').click();
+		}
+ })
+})

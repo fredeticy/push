@@ -25,29 +25,15 @@
    <mvc:default-servlet-handler />
  	<import resource="classpath:config/beans.xml"/>
  	
+ 	<mvc:default-servlet-handler/>
  	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/admin.html" />
-			<mvc:mapping path="/admin/user/edit.html" />
-			<mvc:mapping path="/admin/role/edit.html" />
-			<mvc:mapping path="/admin/msg/edit.html" />
-			<mvc:mapping path="/user.html"/>
-			<!-- <mvc:mapping path="/collect/save" />
-			<mvc:mapping path="/collect/delete" />
-			<mvc:mapping path="/follow/save" />
-			<mvc:mapping path="/follow/delete" />
-			<mvc:mapping path="/follow/count/for" />
-			<mvc:mapping path="/follow/count/to" />
-			<mvc:mapping path="/follow/topics" />
-			<mvc:mapping path="/notification/list" />
-			<mvc:mapping path="/user/settings/profile" />
-			<mvc:mapping path="/user/setting/profile" />
-			<mvc:mapping path="/user/settings/changeAvatar" />
-			<mvc:mapping path="/user/setting/changeAvatar" />
-			<mvc:mapping path="/user/settings/changePassword" />
-			<mvc:mapping path="/user/setting/changePassword" />
-			<mvc:mapping path="/vote" />
-			<mvc:mapping path="/?tab=member" /> -->
+			<!-- 对所有.do拦截 -->
+			<mvc:mapping path="/**/*.do"/>
+			<!-- 对登录页不拦截 -->
+			<mvc:exclude-mapping path="/login.do"/>
+			<!-- <mvc:mapping path="/collect/save" />  !-->
+
 			<!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
 			<bean class="com.czm.handler.GlobalInterceptorHandler" />
 		</mvc:interceptor>

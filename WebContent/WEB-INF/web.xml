@@ -15,4 +15,12 @@ id="WebApp_ID" version="3.1">
     <servlet-name>main</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  <filter>
+   <filter-name>visitFilter</filter-name>
+   <filter-class>com.czm.filter.VisitFilter</filter-class>
+  </filter>
+  <filter-mapping>
+   <filter-name>visitFilter</filter-name>
+   <url-pattern>*.html</url-pattern>
+  </filter-mapping>
 </web-app>

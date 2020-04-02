@@ -33,10 +33,10 @@
            
         </li>
         <li class="sidebar-header"><span>MAIN NAVIGATION</span></li>
-        <li><a href="#" id="user"><span>用户</span></a></li>
-        <li><a href="#" id="role"><span>角色</span></a></li>
-        <li><a href="#" id="msg"><span>消息</span></a></li>
-        <li><a href="/"><span>登出</span></a></li>
+        <li><a href="/admin.html?type=user" id="user"><span>用户</span></a></li>
+        <li><a href="/admin.html?type=role" id="role"><span>角色</span></a></li>
+        <li><a href="/admin.html?type=msg" id="msg"><span>消息</span></a></li>
+        <li><a href="/logout.do"><span>登出</span></a></li>
         
       </ul>
     </div>
@@ -51,9 +51,9 @@
     <div class="box" id='paginate'>
     <div class="box-header">
       
-        <input id ="sercid" name="sercid" placeholder="用户名"/>
-        <button class="btn btn-primary btn-sm" onclick="search()">搜索</button>
-        <button style="float:right" class="btn btn-primary btn-xs">添加</button>
+        <input id ="search" name="search"/>
+        <button class="btn btn-primary btn-sm"id="searchButton">搜索</button>
+        <button style="float:right" class="btn btn-primary btn-xs" id='add_data'>添加</button>
      </div>
         <div class="box-body">
           <table class="table">

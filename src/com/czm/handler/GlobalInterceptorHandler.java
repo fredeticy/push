@@ -1,5 +1,7 @@
 package com.czm.handler;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,9 +13,20 @@ import com.czm.vo.UserVO;
 public class GlobalInterceptorHandler implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
+		System.out.println("#################before####################");
+		System.out.println("#####################################");
+		System.out.println(request.getSession().getAttribute("uservo"));
 		UserVO vo = (UserVO) request.getSession().getAttribute("uservo");
+
+		System.out.println("#################after####################");
+		System.out.println("#####################################");
+		System.out.println(request.getSession().getAttribute("uservo"));
+
 		
+		
+		String spath = request.getServletPath();
+		 
+		System.out.println("spapth = "+ spath);
 		//抛出异常，交给全局异常处理（这样会输出错误信息）
 		//ApiAssert.notNull(user, "页面受到了保护，登录后才能访问~点击去<a href='/login'>登录</a>");
 		
@@ -25,8 +38,9 @@ public class GlobalInterceptorHandler implements HandlerInterceptor{
 		//自定义逻辑（跳转到登录页面）
 		if(vo == null) {
 			request.setAttribute("message", "页面受到了保护，登录后才能访问");
-			response.sendRedirect("/");
-			return false;
+			response.sendRedirect("/index.html");
+			System.out.println("vo == null");
+			return true;
 		}
 		return true;
 	}

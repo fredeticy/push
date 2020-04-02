@@ -18,7 +18,24 @@ public interface AdminMapper {
 	public abstract List<Object> getRoleById(Integer id);
 	public abstract List<Object> getMsgById(Integer id);
 	
+	public abstract Object getUserByUserid(String userid);
+	public abstract Object getRoleByType(String type);	
+	public abstract Object getMsgByTitle(String title);
+	
+	
 	public abstract void editUser(@Param("user")User user);
 	public abstract void editRole(@Param("role")Role role);
 	public abstract void editMsg(@Param("msg")Message msg);
+	
+	public abstract void addUser(@Param("user")User user);
+	public abstract void addRole(@Param("role")Role role);
+	public abstract void addMsg(@Param("msg")Message msg);
+	
+	public abstract void deleteUser(Integer id);
+	public abstract void deleteRole(Integer id);
+	public abstract void deleteMsg(Integer id);
+	
+	public abstract List<Object> getUserBySearch(@Param("userid")String userid);
+	public abstract List<Object> getRoleBySearch(@Param("type")String type);
+	public abstract List<Object> getMsgBySearch(@Param("title")String title);
 }
