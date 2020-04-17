@@ -1,6 +1,7 @@
 package com.czm.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.czm.po.StudentInfo;
+import com.czm.po.StudentVO;
 import com.czm.po.User;
 import com.czm.service.UserService;
+import com.czm.util.JPushUtil;
+import com.czm.vo.Report;
 import com.czm.vo.UserVO;
 @RestController
 public class UserController {
@@ -36,4 +41,36 @@ public class UserController {
 		rep.sendRedirect("/index.html");
 		return ;
 	}
+	
+	@RequestMapping("/getstuinfo.do")
+	public StudentInfo getStudentInfo(String sno){
+		return userService.getStudentInfoBySno(sno);
+	}
+	
+	@RequestMapping(value="/user/jpush/notify.do",produces="text/html;charset=UTF-8")
+	public String sendNotification(String title,String content,String audience,HttpSession session){
+		return userService.sendNotification(title,content,audience,session);
+		/* JPushUtil j = new JPushUtil();
+    	 j.jiguangPush();
+    	 return "";*/
+	}
+	
+	@RequestMapping("/user/getstuvo.do")
+	public List<Object> getAllStuVO()
+	{
+		return userService.getAllStuVO();
+	}
+	
+	@RequestMapping("/user/getscvo.do")
+	public List<Object> getAllSCVO()
+	{
+		return userService.getAllSCVO();
+	}
+	
+	@RequestMapping("/user/getpushhistory.do")
+	public List<Report> getPushHistory(){
+		return userService.getPushHistory();
+	}
+	
+	
 }

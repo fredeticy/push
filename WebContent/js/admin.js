@@ -13,24 +13,24 @@ $(function(){
 	
 })
 
-	$.ajax({
-		type:"GET",
-		url:"/admin/user/list.do",
-		success:function(data){
-			$('#paginate').pagination({
-				dataSource:data,
-				callback:function(data,pagination){
-					var content_title = setContentTitle("user");
-					var thead = setthead("user");
-					var tbody = settbody(data,"user");
-					$('#content_title').html(content_title);
-					$('#thead').html(thead);
-					$('#tbody').html(tbody);
-				}
-			})
-			
-		}
-	})
+$.ajax({
+	type:"GET",
+	url:"/admin/user/list.do",
+	success:function(data){
+		$('#paginate').pagination({
+			dataSource:data,
+			callback:function(data,pagination){
+				var content_title = setContentTitle("user");
+				var thead = setthead("user");
+				var tbody = settbody(data,"user");
+				$('#content_title').html(content_title);
+				$('#thead').html(thead);
+				$('#tbody').html(tbody);
+			}
+		})
+		
+	}
+})
 $(".sidebar-menu a").click(function(){
 	id = $(this).attr('id');
 	
@@ -59,12 +59,12 @@ function setthead(id){
 		html += "<th>#</th>" + "<th>标题</th>" + "<th>内容</th>" + "<th>创建日期</th>" + "<th>创建人</th>" + "<th>操作</th>";
 	}
 	html += "</hr>";	
-	$('#thead').html(html);
+	return html;
 }
 function settbody(data,id){
 	var html = '';
 	$.each(data,function(index,value){
-		html +="<tr>"
+		html +="<tr>";
 		$.each(value,function(key,val){
 			
 			if(val==null||val=="")
@@ -80,9 +80,8 @@ function settbody(data,id){
 		})
 		var button = setButton(id,value.id);
 		html += button;
-		html += "</tr>"
+		html += "</tr>";
 	});
-	html +="</tr>"
 	return html;
 }
 function setButton(id,key){
@@ -218,8 +217,10 @@ $('#searchButton').click(function(){
 		url:url,
 		data:pdata,
 		success:function(data){
-			if(data == '')
+			if(data == ''||data==null){
 				$('#tbody').html("");
+				return ;
+			}
 			let id = type;
 			renderData(data,id);
 		},

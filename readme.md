@@ -8,3 +8,7 @@
 开发用的eclipse,mysql,windows系统
 
 尚未完成
+
+管理员页面截图
+
+![avatar](截图1.png)

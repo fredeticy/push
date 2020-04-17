@@ -5,16 +5,13 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.czm.po.Message;
 import com.czm.po.Role;
 import com.czm.po.User;
 import com.czm.service.AdminService;
-import com.czm.vo.PageInfo;
 import com.czm.vo.UserVO;
 @RestController
 public class AdminController {

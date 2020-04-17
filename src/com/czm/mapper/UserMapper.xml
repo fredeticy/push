@@ -8,4 +8,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="findUserById" resultType="User">
     select * from user where userid = #{userid}
   </select>
+  
+  <select id="getStudentInfoBySno" resultType="StudentInfo">
+    select * from student_info where sno = #{sno}
+  </select>
+  
+ <select id="getAllStuVO" resultType="StudentVO">
+ 	select a.id,a.sno,a.name,a.phonenumber,
+ 	(select SUM(credit) from course c where c.cno in 
+ 	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)) credit_acquired,
+ 	(select SUM(credit) from course c where c.cno not in 
+ 	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)) credit_failed
+ 	from student_info a;
+ </select>
+   
+   <select id="getAllSCVO" resultType="SCVO">
+	   SELECT id,sno ,
+	(select a.name from student_info a where a.sno = sno) name,
+	max(CASE cno when 'c1601' then score else 0 end) c1,
+	max(CASE cno when 'c1602' then score else 0 end) c2,
+	max(CASE cno when 'c1603' then score else 0 end) c3,
+	max(CASE cno when 'c1604' then score else 0 end) c4,
+	max(CASE cno when 'c1605' then score else 0 end) c5,
+	max(CASE cno when 'c1606' then score else 0 end) c6,
+	max(CASE cno when 'c1607' then score else 0 end) c7
+	from student_grade;
+   </select>
+   
+   <select id="getAllMessage" resultType="Message">
+   	 select title,content,date,createrid,msg_id
+   	 from message;
+   </select>
+   
+   <insert id="setMessage" parameterType="Message">
+    insert into message(title,content,date,createrid,msg_id)
+    values(#{msgpo.title},#{msgpo.content},#{msgpo.date},#{msgpo.createrid},#{msgpo.msg_id});
+   </insert>
 </mapper>

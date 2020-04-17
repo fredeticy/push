@@ -1,9 +1,13 @@
 package com.czm.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.czm.po.StudentInfo;
+import com.czm.po.StudentVO;
+import com.czm.vo.Report;
 import com.czm.vo.UserVO;
 
 /*辅导员接口
@@ -21,5 +25,12 @@ public interface UserService {
 	public abstract void showPushHistory();
 	public abstract void setAliyunKey();
 	public abstract UserVO login(String userid,String pwd);
+	public abstract StudentInfo getStudentInfoBySno(String sno);
 	
+	public abstract List<Object> getAllMessage();
+	
+	public abstract List<Object> getAllStuVO();
+	public abstract List<Object> getAllSCVO();
+	public abstract String sendNotification(String title, String content, String audience,HttpSession session);
+	public abstract List<Report> getPushHistory();
 }

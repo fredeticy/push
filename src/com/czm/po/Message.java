@@ -12,6 +12,7 @@ public class Message {
 	private String content;
 	private String date;
 	private String createrid;
+	private String msg_id;
 	public Integer getId() {
 		return id;
 	}
@@ -35,5 +36,11 @@ public class Message {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public String getMsg_id() {
+		return msg_id;
+	}
+	public void setMsg_id(String msg_id) {
+		this.msg_id = msg_id;
 	}
 }

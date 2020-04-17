@@ -38,9 +38,9 @@ function login(){
 			}
 			else {
 			if(data.roleid == "1")
-				window.location.href = "admin.html?type=user";
+				window.location.href = "/admin.html?type=user";
 			else if(data.roleid == "2")
-				window.location.href = "user.html";
+				window.location.href = "/user.html";
 			}
 		},
 		error:function(data){
