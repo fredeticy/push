@@ -168,17 +168,20 @@ public class UserServiceImpl implements UserService{
 		JSONArray arr = JSONArray.fromObject(res);
    	 	for(int i=0,j=0;i<len;i++){
 	   	 	Report rep = (Report)reps.get(i);
+	   	 	System.out.println(rep.toString());
 	   	 	if(rep.getMsg_id()==null)
 	   	 		continue;
 	   		JSONObject obj = arr.getJSONObject(j);
 	   		j++;
 	   		if(obj.containsKey("error"))
 	   			return reps;
-	   		if(rep.getMsg_id()==obj.getString("msg_id")){
+	   		System.out.println("##################rep"+rep.getMsg_id());
+	   		System.out.println("###################obj"+obj.getString("msg_id"));
+	   		if(rep.getMsg_id().equals(obj.getString("msg_id"))){
 	   			rep.setPush_received(obj.getString("jpush_received"));
-	   		}
-	   		
-   	 }
+	   		}	
+	   		System.out.println(rep.toString());
+   	 	}
 		return reps;
 	}
 

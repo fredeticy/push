@@ -50,9 +50,6 @@ public class UserController {
 	@RequestMapping(value="/user/jpush/notify.do",produces="text/html;charset=UTF-8")
 	public String sendNotification(String title,String content,String audience,HttpSession session){
 		return userService.sendNotification(title,content,audience,session);
-		/* JPushUtil j = new JPushUtil();
-    	 j.jiguangPush();
-    	 return "";*/
 	}
 	
 	@RequestMapping("/user/getstuvo.do")

@@ -40,7 +40,7 @@ function login(){
 			if(data.roleid == "1")
 				window.location.href = "/admin.html?type=user";
 			else if(data.roleid == "2")
-				window.location.href = "/user.html";
+				window.location.href = "/user/push_history.html";
 			}
 		},
 		error:function(data){
