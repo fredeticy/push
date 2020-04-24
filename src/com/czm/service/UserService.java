@@ -33,4 +33,6 @@ public interface UserService {
 	public abstract List<Object> getAllSCVO();
 	public abstract String sendNotification(String title, String content, String audience,HttpSession session);
 	public abstract List<Report> getPushHistory();
+	public abstract List<Report> getPushHistoryByDate(String startDate,String endDate);
+	public abstract List<Object> getStuByCredit(String credit);
 }

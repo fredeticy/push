@@ -44,8 +44,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	 from message;
    </select>
    
+   <select id="getMessageByDate" resultType="Message">
+     select id,title,content,date,createrid,msg_id
+     from message where STR_TO_DATE(date,'%Y-%m-%d') <![CDATA[>=]]> STR_TO_DATE(#{from_date},'%Y-%m-%d') 
+     and STR_TO_DATE(date,'%Y-%m-%d') <![CDATA[<=]]> STR_TO_DATE(#{to_date},'%Y-%m-%d');
+   </select>
+   
+   <select id="getStuByCredit" resultType="StudentVO">
+   select a.id,a.sno,a.name,a.phonenumber,
+ 	(select SUM(credit) from course c where c.cno in 
+ 	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)) credit_acquired,
+ 	(select SUM(credit) from course c where c.cno not in 
+ 	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)) credit_failed
+ 	from student_info a having credit_acquired <![CDATA[<]]> #{credit};
+   </select>
+   
    <insert id="setMessage" parameterType="Message">
     insert into message(title,content,date,createrid,msg_id)
     values(#{msgpo.title},#{msgpo.content},#{msgpo.date},#{msgpo.createrid},#{msgpo.msg_id});
    </insert>
+   
+   <!-- insert into collegeinfopush.student_grade (sno,cno,score) select #{}'b1601',#{}'c1601',#{}'66' from collegeinfopush.student_grade where not exists
+(select * from collegeinfopush.student_grade where sno='b1601' and cno='c1601' limit 1); -->
 </mapper>

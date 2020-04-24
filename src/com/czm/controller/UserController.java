@@ -69,5 +69,14 @@ public class UserController {
 		return userService.getPushHistory();
 	}
 	
+	@RequestMapping("/user/get_push_history_by_date.do")
+	public List<Report> getPushHistory(String startDate,String endDate){
+		return userService.getPushHistoryByDate(startDate, endDate);
+	}
 	
+
+	@RequestMapping("/user/get_stu_by_credit.do")
+	public List<Object> getStuByCredit(String credit){
+		return userService.getStuByCredit(credit);
+	}
 }

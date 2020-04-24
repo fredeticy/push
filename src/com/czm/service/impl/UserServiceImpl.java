@@ -147,9 +147,9 @@ public class UserServiceImpl implements UserService{
 		return userMapper.getAllMessage();
 	}
 	
-	private List<Report> generateReportObj(){
+	private List<Report> generateReportObj(List<Object> msgs){
 		List<Report> reps = new ArrayList<>();
-		List<Object> msgs = getAllMessage();
+		
 		JPushUtil jpush = new JPushUtil();
 		int len = msgs.size();
 		String msg_ids = "";
@@ -188,7 +188,20 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<Report> getPushHistory() {
 		// TODO Auto-generated method stub
-		
-		return generateReportObj();
+		List<Object> msgs = getAllMessage();
+		return generateReportObj(msgs);
+	}
+
+	@Override
+	public List<Report> getPushHistoryByDate(String startDate,String endDate) {
+		// TODO Auto-generated method stub
+		List<Object> msgs = userMapper.getMessageByDate(startDate, endDate);
+		return generateReportObj(msgs);
+	}
+
+	@Override
+	public List<Object> getStuByCredit(String credit) {
+		// TODO Auto-generated method stub
+		return userMapper.getStuByCredit(credit);
 	}
 }
