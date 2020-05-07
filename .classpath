@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/aspectj-1.8.13.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/aspectjweaver-1.8.7.jar"/>
@@ -46,10 +49,8 @@
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/mysql-connector-java-5.1.26-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/pagehelper-3.4.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/pdf-transcoder.jar"/>
-	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-3.15.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-examples-3.15.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-excelant-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-ooxml-3.15.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-ooxml-schemas-3.15.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/poi-scratchpad-3.15.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/slf4j-api-1.6.1.jar"/>
@@ -78,6 +79,18 @@
 	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/Spring/xmlgraphics-commons-1.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Downloads/aliyun-java-sdk-core-4.5.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/24434/Downloads/aliyun-java-sdk-sms-3.0.0-rc1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/easyexcel-2.2.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/24434/Desktop/note/jar/validation-api-2.0.1.Final.jar"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

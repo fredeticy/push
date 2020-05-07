@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.messaging.handler.annotation.Payload;
 
 import com.czm.po.Message;
+import com.czm.po.SCVO;
 import com.czm.po.StudentInfo;
 import com.czm.po.User;
 import com.czm.vo.Report;
@@ -22,5 +23,7 @@ public interface UserMapper {
 	public List<Object> getPushHistory();
 	public List<Object> getMessageByDate(@Param("from_date")String startDate,@Param("to_date")String endDate);
 	public List<Object> getStuByCredit(String credit);
+	public void addBatchStuInfo(List<StudentInfo> siList);
+	public void addBatchSC(List<SCVO> scList);
 	
 }

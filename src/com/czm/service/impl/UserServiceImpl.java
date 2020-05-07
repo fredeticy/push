@@ -1,24 +1,38 @@
 package com.czm.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
+import com.alibaba.excel.EasyExcel;
 import com.czm.mapper.UserMapper;
 import com.czm.po.Message;
+import com.czm.po.SCVO;
+import com.czm.po.StudentGrade;
 import com.czm.po.StudentInfo;
 import com.czm.po.StudentVO;
 import com.czm.po.User;
 import com.czm.service.UserService;
+import com.czm.util.FileUtil;
 import com.czm.util.JPushUtil;
 import com.czm.vo.Report;
+import com.czm.vo.StuVO;
+import com.czm.vo.StuVOExcel;
 import com.czm.vo.UserVO;
 
 import net.sf.json.JSONArray;
@@ -204,4 +218,95 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return userMapper.getStuByCredit(credit);
 	}
+	
+	private List<Object> export_Stu_Data(){
+		return getAllStuVO();
+	}
+	
+	private List<Object> export_SC_Data(){
+		return getAllSCVO();
+	}
+	@Override
+	public ResponseEntity<byte[]> exportStu(HttpServletRequest request) throws IOException{
+		// TODO Auto-generated method stub
+		String filename = FileUtil.getPath() + "学生信息" + ".xlsx";
+		EasyExcel.write(filename,StudentVO.class).sheet("学生信息").doWrite(export_Stu_Data());
+		String download = new String("学生信息.xlsx".getBytes("utf-8"),"iso-8859-1");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);	
+		headers.setContentDispositionFormData("attachment", download);
+		File file = new File(filename);
+		return new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file),headers, HttpStatus.CREATED);
+	}
+	
+	@Override
+	public ResponseEntity<byte[]> exportSC(HttpServletRequest request) throws IOException{
+		// TODO Auto-generated method stub
+		String filename = FileUtil.getPath() + "学生成绩" + ".xlsx";
+		EasyExcel.write(filename,SCVO.class).sheet("学生成绩").doWrite(export_SC_Data());
+		String download = new String("学生成绩.xlsx".getBytes("utf-8"),"iso-8859-1");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);	
+		headers.setContentDispositionFormData("attachment", download);
+		File file = new File(filename);
+		return new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file),headers, HttpStatus.CREATED);
+	}
+
+	@Override
+	public ResponseEntity<byte[]> downloadTmp(HttpServletRequest request) throws IOException{
+		// TODO Auto-generated method stub
+		String filename = FileUtil.getPath() + "示例" + ".xlsx";
+		EasyExcel.write(filename,StuVO.class).sheet("示例").doWrite(new ArrayList<StuVO>());
+		String download = new String("示例.xlsx".getBytes("utf-8"),"iso-8859-1");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);	
+		headers.setContentDispositionFormData("attachment", download);
+		File file = new File(filename);
+		return new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file),headers, HttpStatus.CREATED);
+	}
+
+	@Override
+	public void saveImportStu(List successList) {
+		// TODO Auto-generated method stub
+		if(successList.isEmpty()||successList==null){
+			System.out.println("servicesave is null");
+			return ;
+		}
+		int len = successList.size();
+		List<StudentInfo> siList = new ArrayList<StudentInfo>();
+		List<SCVO> scList = new ArrayList<SCVO>();
+		StudentInfo si;
+		SCVO sc;
+		for(int i =0;i<len;i++){
+			Object obj = successList.get(i);
+			if(obj instanceof StuVOExcel){
+				si = new StudentInfo();
+				sc = new SCVO();
+				si.setSno(((StuVOExcel) obj).getSno());
+				si.setName(((StuVOExcel) obj).getName());
+				si.setGender(((StuVOExcel) obj).getGender());
+				si.setPhonenumber(((StuVOExcel) obj).getPhone_number());
+				si.setClassno(((StuVOExcel) obj).getClass_no());
+				si.setGuadianphonenumber(((StuVOExcel) obj).getGuadian_phone_number());
+				
+				siList.add(si);
+				
+				sc.setSno(((StuVOExcel) obj).getSno());
+				sc.setC1(Double.parseDouble(((StuVOExcel) obj).getScore_c1()));
+				sc.setC2(Double.parseDouble(((StuVOExcel) obj).getScore_c2()));
+				sc.setC3(Double.parseDouble(((StuVOExcel) obj).getScore_c3()));
+				sc.setC4(Double.parseDouble(((StuVOExcel) obj).getScore_c4()));
+				sc.setC5(Double.parseDouble(((StuVOExcel) obj).getScore_c5()));
+				sc.setC6(Double.parseDouble(((StuVOExcel) obj).getScore_c6()));
+				sc.setC7(Double.parseDouble(((StuVOExcel) obj).getScore_c7()));
+				scList.add(sc);
+			}
+		}
+		userMapper.addBatchStuInfo(siList);
+		userMapper.addBatchSC(scList);
+	}
+
+	
+
+	
 }

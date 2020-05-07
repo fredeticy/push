@@ -64,6 +64,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     values(#{msgpo.title},#{msgpo.content},#{msgpo.date},#{msgpo.createrid},#{msgpo.msg_id});
    </insert>
    
+   <insert id="addBatchStuInfo" parameterType="java.util.List">
+    insert into student_info(sno,name,gender,phonenumber,classno,guadianphonenumber)
+    values
+    <foreach collection="list" item="stuList" index="index" separator=",">
+     (
+     #{stuList.sno},#{stuList.name},#{stuList.gender},
+   	 #{stuList.phonenumber},#{stuList.classno},#{stuList.guadianphonenumber}
+     )
+    </foreach>
+    on duplicate key update name=values(name),gender=values(gender),
+    phonenumber=values(phonenumber),classno=values(classno),guadianphonenumber=values(guadianphonenumber)
+   </insert>
+   
+   <insert id="addBatchSC" parameterType="java.util.List">
+    insert into student_grade(sno,cno,score)
+    values
+    <foreach collection="list" item="scList" index="index" separator=",">
+     (#{scList.sno},'c1601',#{scList.c1}),
+     (#{scList.sno},'c1602',#{scList.c2}),
+     (#{scList.sno},'c1603',#{scList.c3}),
+     (#{scList.sno},'c1604',#{scList.c4}),
+     (#{scList.sno},'c1605',#{scList.c5}),
+     (#{scList.sno},'c1606',#{scList.c6}),
+     (#{scList.sno},'c1607',#{scList.c7})
+    </foreach>
+    on duplicate key update score=values(score)
+   </insert>
    <!-- insert into collegeinfopush.student_grade (sno,cno,score) select #{}'b1601',#{}'c1601',#{}'66' from collegeinfopush.student_grade where not exists
 (select * from collegeinfopush.student_grade where sno='b1601' and cno='c1601' limit 1); -->
 </mapper>
