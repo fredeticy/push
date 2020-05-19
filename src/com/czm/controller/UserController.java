@@ -21,6 +21,10 @@ import com.czm.service.UserService;
 import com.czm.util.JPushUtil;
 import com.czm.vo.Report;
 import com.czm.vo.UserVO;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
 @RestController
 public class UserController {
 	
@@ -28,10 +32,13 @@ public class UserController {
 	private UserService userService;
 	
 	
-	@RequestMapping("/login.do")
-	public UserVO login(String userid,String pwd,HttpSession session){
-		UserVO vo = userService.login(userid, pwd);
+	@RequestMapping(value = "/login.do")
+	@ResponseBody
+	public Object login(String userid,String pwd,HttpSession session){
+		UserVO vo = (UserVO)userService.login(userid, pwd);
 		System.out.println(vo.getMsg() + "#####################");
+		if(vo.getUser() == null)
+			vo.setUser(new User());
 		session.setAttribute("uservo", vo);
 		return vo;
 	}
@@ -50,7 +57,12 @@ public class UserController {
 	
 	@RequestMapping(value="/user/jpush/notify.do",produces="text/html;charset=UTF-8")
 	public String sendNotification(String title,String content,String audience,HttpSession session){
-		return userService.sendNotification(title,content,audience,session);
+		String censorContent = title + "#" + content ;
+		UserVO vo = (UserVO)session.getAttribute("uservo");
+		String createrid = vo.getUserid();
+		if(userService.censorPushContent(censorContent, createrid))
+			return "{\"wrong\":\"内容包含敏感字符,发送失败,请检查内容,或咨询管理员\"}";
+		return userService.sendNotification(title,content,audience,createrid);
 	}
 	
 	@RequestMapping("/user/getstuvo.do")
@@ -64,6 +76,13 @@ public class UserController {
 	{
 		return userService.getAllSCVO();
 	}
+	
+	@RequestMapping("/user/getparvo.do")
+	public List<Object> getAllParVO()
+	{
+		return userService.getAllParVO();
+	}
+	
 	
 	@RequestMapping("/user/getpushhistory.do")
 	public List<Report> getPushHistory(){
@@ -81,6 +100,16 @@ public class UserController {
 		return userService.getStuByCredit(credit);
 	}
 	
+	@RequestMapping("/user/get_sc_by_sno.do")
+	public List<Object> getSCBySno(String sno){
+		return userService.getSCBySno(sno);
+	}
+	
+	@RequestMapping("/user/get_par_by_sno.do")
+	public List<Object> getParBySno(String sno){
+		return userService.getParBySno(sno);
+	}
+	
 	@RequestMapping("/user/export_stu.do")
 	public ResponseEntity<byte[]> exportStu(HttpServletRequest request) throws IOException{
 		return userService.exportStu(request);
@@ -89,6 +118,11 @@ public class UserController {
 	@RequestMapping("/user/export_sc.do")
 	public ResponseEntity<byte[]> exportSC(HttpServletRequest request) throws IOException{
 		return userService.exportSC(request);
+	}
+	
+	@RequestMapping("/user/export_par.do")
+	public ResponseEntity<byte[]> exportParVO(HttpServletRequest request) throws IOException{
+		return userService.exportParVO(request);
 	}
 	
 	@RequestMapping("/user/download_tmp.do")

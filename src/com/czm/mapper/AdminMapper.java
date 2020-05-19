@@ -13,6 +13,7 @@ public interface AdminMapper {
 	public abstract List<Object> getAllUsers();
 	public abstract List<Object> getAllRoles();
 	public abstract List<Object> getAllMsg();
+	public abstract List<Object> getAllCensor();
 	
 	public abstract List<Object> getUserById(Integer id);
 	public abstract List<Object> getRoleById(Integer id);
@@ -38,4 +39,6 @@ public interface AdminMapper {
 	public abstract List<Object> getUserBySearch(@Param("userid")String userid);
 	public abstract List<Object> getRoleBySearch(@Param("type")String type);
 	public abstract List<Object> getMsgBySearch(@Param("title")String title);
+	public abstract List<Object> getCensorBySearch(@Param("createrid")String createrid);
+	
 }

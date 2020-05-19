@@ -9,6 +9,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
      </settings> 
 	 <typeAliases>
 		<package name="com.czm.po"/>
+		<package name="com.czm.vo"/>
 	</typeAliases> 
  
 </configuration>

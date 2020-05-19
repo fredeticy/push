@@ -15,6 +15,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <sql id ="msg_list">
     id,title,content,date,createrid
   </sql>
+  
+  <sql id="censor_list">
+   id,censor_word_num,censor_word,censor_content_len,createrid,upload_date
+  </sql>
+  
   <select id="getAllUsers" resultType="User">
     select
      <include refid="user_list"></include>
@@ -31,6 +36,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     select
     <include refid="msg_list"></include>
     from message;
+  </select>
+  
+  <select id="getAllCensor" resultType="Censor">
+   select 
+   <include refid="censor_list"></include>
+    from censor;
   </select>
   
   <select id="getUserById" resultType="User">
@@ -79,6 +90,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <bind name="msg_title" value="'%' + title + '%'"/>
     select * from message where title like #{msg_title};
   </select>
+  
+  <select id="getCensorBySearch" resultType="Censor">
+   <bind name="censor_createrid" value="'%' + createrid + '%'"/>
+    select * from censor where createrid like #{censor_createrid};
+  </select>
+  
   
   <update id="editUser" parameterType="User">
   	update user

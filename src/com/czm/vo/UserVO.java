@@ -2,6 +2,8 @@ package com.czm.vo;
 import com.czm.po.User;
 
 public class UserVO {
+	
+	
 	@Override
 	public String toString() {
 		if(user == null)
@@ -12,6 +14,9 @@ public class UserVO {
 	public UserVO(User user) {
 		// TODO Auto-generated constructor stub
 		this.user = user;
+	}
+	public UserVO() {
+		// TODO Auto-generated constructor stub
 	}
 	public String getPhonenumber() {
 		return user.getPhonenumber();
@@ -55,5 +60,11 @@ public class UserVO {
 	}
 	public void setId(Integer id){
 		user.setId(id);
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

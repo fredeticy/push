@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import org.springframework.util.FileCopyUtils;
 
 import com.alibaba.excel.EasyExcel;
 import com.czm.mapper.UserMapper;
+import com.czm.po.Censor;
 import com.czm.po.Message;
 import com.czm.po.SCVO;
 import com.czm.po.StudentGrade;
@@ -30,6 +32,8 @@ import com.czm.po.User;
 import com.czm.service.UserService;
 import com.czm.util.FileUtil;
 import com.czm.util.JPushUtil;
+import com.czm.util.WordFilterUtil;
+import com.czm.vo.ParentVO;
 import com.czm.vo.Report;
 import com.czm.vo.StuVO;
 import com.czm.vo.StuVOExcel;
@@ -45,74 +49,25 @@ public class UserServiceImpl implements UserService{
 	private UserMapper userMapper;
 
 	@Override
-	public ArrayList<Object> showAllStudent() {
+	public Object login(String userid,String pwd) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Object> selectWarningStudent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void importStudentInfo() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void importMessageTarget() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteMessageTarget() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void showPushResult() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void showPushHistory() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setAliyunKey() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public UserVO login(String userid,String pwd) {
-		// TODO Auto-generated method stub
-		User user = this.findUserById(userid);
+		User user = (User) this.findUserById(userid);
 		UserVO vo = new UserVO(user);
 		if(user == null){
+			vo = new UserVO();
 			vo.setMsg("用户不存在");
 		}
 		else if(!user.getPwd().equals(pwd)){
 			vo.setMsg("密码不正确");
 		}
 		else{
-			vo.setUserid(userid);
-			vo.setRoleid(user.getRoleid());
 			vo.setMsg("success");
 		}
 		return vo;
 	}
 	
 	
-	private User findUserById(String userid){
+	private Object findUserById(String userid){
 		return userMapper.findUserById(userid);
 	}
 	
@@ -131,17 +86,21 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return userMapper.getAllSCVO();
 	}
+	
+	@Override
+	public List<Object> getAllParVO() {
+		// TODO Auto-generated method stub
+		return userMapper.getAllParVO();
+	}
 
 	@Override
-	public String sendNotification(String title, String content, String audience,HttpSession session) {
+	public String sendNotification(String title, String content, String audience,String createrid) {
 		// TODO Auto-generated method stub
 		JPushUtil jpush = new JPushUtil();
 		String res = jpush.sendNotification(title, content, audience);
-		UserVO vo = (UserVO)session.getAttribute("uservo");
 		JSONObject json = JSONObject.fromObject(res);
 		
 		String date = DateFormat.getDateInstance().format(new Date());
-		String createrid = vo.getUserid();
 		
 		String msg_id = json.get("msg_id").toString();
 		Message msgpo = new Message();
@@ -219,6 +178,18 @@ public class UserServiceImpl implements UserService{
 		return userMapper.getStuByCredit(credit);
 	}
 	
+	@Override
+	public List<Object> getSCBySno(String sno) {
+		// TODO Auto-generated method stub
+		return userMapper.getSCBySno(sno);
+	}
+	
+	@Override
+	public List<Object> getParBySno(String sno) {
+		// TODO Auto-generated method stub
+		return userMapper.getParBySno(sno);
+	}
+	
 	private List<Object> export_Stu_Data(){
 		return getAllStuVO();
 	}
@@ -245,6 +216,20 @@ public class UserServiceImpl implements UserService{
 		String filename = FileUtil.getPath() + "学生成绩" + ".xlsx";
 		EasyExcel.write(filename,SCVO.class).sheet("学生成绩").doWrite(export_SC_Data());
 		String download = new String("学生成绩.xlsx".getBytes("utf-8"),"iso-8859-1");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);	
+		headers.setContentDispositionFormData("attachment", download);
+		File file = new File(filename);
+		return new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file),headers, HttpStatus.CREATED);
+	}
+	
+	@Override
+	public ResponseEntity<byte[]> exportParVO(HttpServletRequest request) throws IOException{
+		// TODO Auto-generated method stub
+		String filename = FileUtil.getPath() + "家长信息" + ".xlsx";
+		List<Object> parVOData = getAllParVO();
+		EasyExcel.write(filename,ParentVO.class).sheet("家长信息").doWrite(parVOData);
+		String download = new String("家长信息.xlsx".getBytes("utf-8"),"iso-8859-1");
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);	
 		headers.setContentDispositionFormData("attachment", download);
@@ -304,6 +289,33 @@ public class UserServiceImpl implements UserService{
 		}
 		userMapper.addBatchStuInfo(siList);
 		userMapper.addBatchSC(scList);
+	}
+
+
+	@Override
+	public boolean censorPushContent(String pushContent,String createrid) {
+		// TODO Auto-generated method stub
+		if(!WordFilterUtil.isContaintBadWord(pushContent, 2))
+			return false;
+		Set<String> set = WordFilterUtil.getBadWord(pushContent, 2);
+		Censor censor = new Censor();
+		censor.setCensor_word(JSONArray.fromObject(set).toString());
+		censor.setCensor_content_len(pushContent.length());
+		censor.setCreaterid(createrid);
+		censor.setUpload_date(DateFormat.getDateInstance().format(new Date()));
+		censor.setCensor_word_num(set.size());
+		saveCensorInfo(censor);
+		return true;
+	}
+
+
+	@Override
+	public void saveCensorInfo(Censor censor) {
+		// TODO Auto-generated method stub
+		if(censor==null)
+			return;
+		userMapper.saveCensorInfo(censor);
+					
 	}
 
 	

@@ -50,6 +50,12 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
+	public List<Object> getAllCensor() {
+		// TODO Auto-generated method stub
+		return adminMapper.getAllCensor();
+	}
+	
+	@Override
 	public List<Object> getUserById(Integer id) {
 		// TODO Auto-generated method stub
 		return adminMapper.getUserById(id);
@@ -153,5 +159,9 @@ public class AdminServiceImpl implements AdminService{
 		return adminMapper.getMsgBySearch(title);
 	}
 
-
+	@Override
+	public List<Object> getCensorBySearch(String createrid) {
+		// TODO Auto-generated method stub
+		return adminMapper.getCensorBySearch(createrid);
+	}
 }

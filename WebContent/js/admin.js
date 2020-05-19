@@ -13,7 +13,7 @@ $(function(){
 	
 })
 
-$.ajax({
+/*$.ajax({
 	type:"GET",
 	url:"/admin/user/list.do",
 	success:function(data){
@@ -30,10 +30,9 @@ $.ajax({
 		})
 		
 	}
-})
+})*/
 $(".sidebar-menu a").click(function(){
 	id = $(this).attr('id');
-	
 	getData(id);
 })
 function setContentTitle(id){
@@ -44,6 +43,8 @@ function setContentTitle(id){
 		content_title = "角色<small>列表</small>";
 	}else if(id == "msg"){
 		content_title = "信息<small>列表</small>";
+	}else if(id == "censor"){
+		content_title = "未通过推送<small>列表</small>";
 	}
 	return content_title;
 }
@@ -57,6 +58,9 @@ function setthead(id){
 		html += "<th>#</th>" + "<th>类型</th>" + "<th>创建日期</th>" +"<th>操作</th>";
 	}else if(id == "msg"){
 		html += "<th>#</th>" + "<th>标题</th>" + "<th>内容</th>" + "<th>创建日期</th>" + "<th>创建人</th>" + "<th>操作</th>";
+	}else if(id=="censor"){
+		html += "<th>#</th>" + "<th>敏感词个数</th>" + "<th>敏感词</th>" + "<th>原文长度</th>" 
+		+ "<th>创建人</th>" + "<th>创建日期</th>"; 
 	}
 	html += "</hr>";	
 	return html;
@@ -103,6 +107,8 @@ function getData(id){
 		type:"get",
 		url:"/admin/" + id + "/list.do",
 		success:function(data){
+			if(id == 'censor')
+				$('#add_data').css('display','none')
 			renderData(data,id);
 		}
 	})
@@ -156,7 +162,7 @@ function deleteRole(id){
 		},
 		success:function(data){
 			alert('删除成功');
-			window.location.href ="/admin.html?type=user";
+			window.location.href ="/admin.html?type=role";
 		},
 		error:function(data){
 			alert('删除失败');
@@ -176,7 +182,7 @@ function deleteMsg(id){
 		},
 		success:function(data){
 			alert('删除成功');
-			window.location.href ="/admin.html?type=user";
+			window.location.href ="/admin.html?type=msg";
 		},
 		error:function(data){
 			alert('删除失败');
@@ -191,13 +197,17 @@ $(function(){
 		$('#search').attr('placeholder','类型');
 	else if(type == 'msg')
 		$('#search').attr('placeholder','标题');
+	else if(type == 'censor')
+		$('#search').attr('placeholder','创建人id');
 })
 $('#searchButton').click(function(){
 	type = getParam('type');
 	var url = '';
 	let val = $('#search').val();
+	if(val == '')
+		getData(type);
 	var pdata ={};
-	if(type == 'user'){
+	if(type == 'user'){			
 		url = "/admin/user/search.do";
 		pdata = {'userid':val};
 	}
@@ -208,6 +218,9 @@ $('#searchButton').click(function(){
 	else if(type == 'msg'){
 		url = "/admin/msg/search.do";
 		pdata = {'title':val};
+	}else if(type == 'censor'){
+		url = "/admin/censor/search.do";
+		pdata = {'createrid':val};
 	}	
 	if(val == "")
 		return ;

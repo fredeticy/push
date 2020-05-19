@@ -34,10 +34,16 @@ public class AdminController {
 		return adminService.getAllMsg();
 	}
 	
+	@RequestMapping("/admin/censor/list.do")
+	public List<Object> getCensorList(){
+		return adminService.getAllCensor();
+	}
+	
 	@RequestMapping("/admin/user/edit.do")
 	public List<Object> getUserById(Integer id){
 		return adminService.getUserById(id);
 	}
+	
 	
 	@RequestMapping("/admin/role/edit.do")
 	public List<Object> getRoleById(Integer id){
@@ -116,5 +122,10 @@ public class AdminController {
 	@RequestMapping("/admin/msg/search.do")
 	public List<Object> searchMsg(String title){
 		return adminService.getMsgBySearch(title);
+	}
+	
+	@RequestMapping("/admin/censor/search.do")
+	public List<Object> searchCensor(String createrid){
+		return adminService.getCensorBySearch(createrid);
 	}
 }

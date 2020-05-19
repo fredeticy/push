@@ -24,14 +24,9 @@ function login(){
 		},
 		timeout:4000,
 		contentType:"application/x-www-form-urlencoded;charset=utf-8",
-		url:'login.do',
+		url:'/login.do',
 		success:function(data){
-			for(var i=0;i<10;i++)
-				{
-				
-				console.log(i);
-				}
-				
+			console.log(data);
 			if("success" != data.msg){
 				alert(data.msg);
 				$("#pwd").val("");
@@ -44,11 +39,7 @@ function login(){
 			}
 		},
 		error:function(data){
-			for(var i=100;i>90;i--)
-			{
-			
-			console.log(i);
-			}
+			console.log(data);
 			alert('登录错误');
 		},
 	})	

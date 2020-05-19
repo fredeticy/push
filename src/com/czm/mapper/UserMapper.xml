@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
    
    <select id="getAllSCVO" resultType="SCVO">
-	   SELECT a.id,a.sno,
+	   SELECT a.sno,
 	b.name,
 	max(CASE cno when 'c1601' then score else 0 end) c1,
 	max(CASE cno when 'c1602' then score else 0 end) c2,
@@ -37,6 +37,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	group by sno
 ;
 
+   </select>
+   
+   <select id="getAllParVO" resultType="ParentVO">
+    select x.sno,x.name,x.phonenumber,x.classno,
+	y.pno,y.p_name,y.p_phone,y.p_workplace
+ 	from student_info x, parent y,
+	(select * from stu_par) a
+	where x.sno = a.sno and y.pno = a.pno;
    </select>
    
    <select id="getAllMessage" resultType="Message">
@@ -58,6 +66,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)) credit_failed
  	from student_info a having credit_acquired <![CDATA[<]]> #{credit};
    </select>
+   
+   <select id="getSCBySno" resultType="SCVO">
+    SELECT a.sno,
+	b.name,
+	max(CASE cno when 'c1601' then score else 0 end) c1,
+	max(CASE cno when 'c1602' then score else 0 end) c2,
+	max(CASE cno when 'c1603' then score else 0 end) c3,
+	max(CASE cno when 'c1604' then score else 0 end) c4,
+	max(CASE cno when 'c1605' then score else 0 end) c5,
+	max(CASE cno when 'c1606' then score else 0 end) c6,
+	max(CASE cno when 'c1607' then score else 0 end) c7
+	from student_grade a,(select name,sno from student_info c) b
+	where a.sno = #{sno} and a.sno = b.sno
+	group by sno
+   </select>
+   
+   <select id="getParBySno" resultType="ParentVO">
+    select x.sno,x.name,x.phonenumber,x.classno,
+	y.pno,y.p_name,y.p_phone,y.p_workplace
+ 	from student_info x, parent y,
+	(select * from stu_par) a
+	where x.sno = #{sno} and x.sno = a.sno and y.pno = a.pno;
+   </select>
+   
+   <insert id="saveCensorInfo" parameterType="Censor">
+    insert into censor(censor_word_num,censor_word,censor_content_len,createrid,upload_date)
+    values
+    (#{cen.censor_word_num},#{cen.censor_word},#{cen.censor_content_len},
+    #{cen.createrid},#{cen.upload_date})
+   </insert>
    
    <insert id="setMessage" parameterType="Message">
     insert into message(title,content,date,createrid,msg_id)

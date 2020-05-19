@@ -11,23 +11,24 @@ import com.czm.po.User;
  *2020-3-26
  */
 public interface AdminService {
-//	public List<Object> getAllUsers(PageInfo pageInfo);
-	public List<Object> getAllUsers();
-	public boolean addUser(User user);
-	public void deleteUser(Integer id);
-
-	public boolean addRole(Role role);
-	public void deleteRole(Integer id);
 	
+	public boolean addUser(User user);
+	public boolean addRole(Role role);
 	public boolean addMsg(Message msg);
+	
+	public void deleteUser(Integer id);
+	public void deleteRole(Integer id);
 	public void deleteMsg(Integer id);
 	
-	
+	public List<Object> getAllUsers();
 	public List<Object> getAllRoles();
 	public List<Object> getAllMsg();
+	public List<Object> getAllCensor();
+
 	public List<Object> getUserById(Integer id);
 	public List<Object> getRoleById(Integer id);
 	public List<Object> getMsgById(Integer id);
+	
 	public void editUser(User user);
 	public void editRole(Role role);
 	public void editMsg(Message msg);
@@ -35,4 +36,5 @@ public interface AdminService {
 	public List<Object> getUserBySearch(String userid);
 	public List<Object> getRoleBySearch(String type);
 	public List<Object> getMsgBySearch(String title);
+	public List<Object> getCensorBySearch(String createrid);
 }
