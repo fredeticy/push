@@ -19,6 +19,7 @@ import com.czm.po.StudentVO;
 import com.czm.po.User;
 import com.czm.service.UserService;
 import com.czm.util.JPushUtil;
+import com.czm.util.ProgressUtil;
 import com.czm.vo.Report;
 import com.czm.vo.UserVO;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -58,6 +59,7 @@ public class UserController {
 	@RequestMapping(value="/user/jpush/notify.do",produces="text/html;charset=UTF-8")
 	public String sendNotification(String title,String content,String audience,HttpSession session){
 		String censorContent = title + "#" + content ;
+		System.out.println("send audience: " + audience);
 		UserVO vo = (UserVO)session.getAttribute("uservo");
 		String createrid = vo.getUserid();
 		if(userService.censorPushContent(censorContent, createrid))
@@ -130,4 +132,28 @@ public class UserController {
 		return userService.downloadTmp(request);
 	}
 	
+	@RequestMapping("/user/credit-push.do")
+	public Object pushAllCredit(Integer prog_key,HttpSession session){
+		System.out.println("pk is " + prog_key);
+		return userService.pushAllCredit(prog_key,session);
+	}
+	
+	@RequestMapping("/user/credit-warning-push.do")
+	public Object pushAllCreditWarning(Integer prog_key,HttpSession session){
+		
+		return userService.pushAllCreditWarning(prog_key,session);
+	}
+	
+	@RequestMapping("/user/getprogress1.do")
+	public Integer getProgress1(Integer prog_key){
+		System.out.println(ProgressUtil.progMap.get(prog_key));
+		return ProgressUtil.progMap.get(prog_key);
+	}
+	
+	@RequestMapping("/user/getprogress2.do")
+	public Integer getProgress2(Integer prog_key){
+		System.out.println("pk is " + prog_key);
+		System.out.println(ProgressUtil.progMap.get(prog_key));
+		return ProgressUtil.progMap.get(prog_key);
+	}
 }

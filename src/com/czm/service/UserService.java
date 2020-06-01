@@ -42,4 +42,7 @@ public interface UserService{
 	public abstract List<Object> getParBySno(String sno);
 	public abstract boolean censorPushContent(String pushContent,String createrid); 
 	public abstract void saveCensorInfo(Censor censor);
+	
+	public abstract String pushAllCredit(Integer prog_k,HttpSession session);
+	public abstract String pushAllCreditWarning(Integer prog_k,HttpSession session);
 }

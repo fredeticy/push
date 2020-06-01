@@ -22,7 +22,7 @@ function login(){
 			'userid':userid,
 			'pwd':pwd
 		},
-		timeout:4000,
+		timeout:9000,
 		contentType:"application/x-www-form-urlencoded;charset=utf-8",
 		url:'/login.do',
 		success:function(data){

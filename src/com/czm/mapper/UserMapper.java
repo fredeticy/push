@@ -19,6 +19,7 @@ public interface UserMapper {
 	public List<Object> getAllStuVO();
 	public List<Object> getAllSCVO();
 	public void setMessage(@Param("msgpo")Message msgpo);
+	public void addBatchMessage(List<Object> msgList);
 	
 	public List<Object> getAllMessage();
 	public List<Object> getPushHistory();
@@ -31,4 +32,7 @@ public interface UserMapper {
 	public List<Object> getAllParVO();
 	public void saveCensorInfo(@Param("cen")Censor censor);
 	
+	public List<Object> getAllCreditPush();
+	public List<Object> getAllCreditWarning();
+	public List<Object> getSCVOLess60();
 }

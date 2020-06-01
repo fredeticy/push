@@ -15,10 +15,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
  <select id="getAllStuVO" resultType="StudentVO">
  	select a.id,a.sno,a.name,a.phonenumber,
- 	(select SUM(credit) from course c where c.cno in 
- 	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)) credit_acquired,
- 	(select SUM(credit) from course c where c.cno not in 
- 	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)) credit_failed
+ 	IFNULL((select SUM(credit) from course c where c.cno in 
+ 	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)),0) credit_acquired,
+ 	IFNULL((select SUM(credit) from course c where c.cno not in 
+ 	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)),0) credit_failed
  	from student_info a;
  </select>
    
@@ -36,7 +36,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where a.sno = b.sno
 	group by sno
 ;
-
+   </select>
+   
+   <select id="getSCVOLess60" resultType="SCVO">
+    SELECT a.sno,
+	b.name,
+	max(CASE cno when 'c1601' then score else 0 end) c1,
+	max(CASE cno when 'c1602' then score else 0 end) c2,
+	max(CASE cno when 'c1603' then score else 0 end) c3,
+	max(CASE cno when 'c1604' then score else 0 end) c4,
+	max(CASE cno when 'c1605' then score else 0 end) c5,
+	max(CASE cno when 'c1606' then score else 0 end) c6,
+	max(CASE cno when 'c1607' then score else 0 end) c7
+	from student_grade a,(select name,sno from student_info c) b
+	where a.sno = b.sno and (select avg(b.score) from student_grade b where a.sno = b.sno)<![CDATA[<]]>60
+	group by sno
+   </select>
+ 
+   <select id="getAllCreditPush" resultType="CreditPushVO">
+    select a.sno,a.name, 
+	round((select avg(b.score) from student_grade b where a.sno = b.sno),2) aver,
+	(select count(*) from student_grade b where a.sno = b.sno and score<![CDATA[<]]>60) failnum,
+	IFNULL((select SUM(credit) from course c where c.cno not in 
+	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)),0) credit_failed
+	from collegeinfopush.student_info a
+   </select>
+   
+   <select id="getAllCreditWarning" resultType="CreditPushVO">
+     select a.sno,a.name, 
+	round((select avg(b.score) from student_grade b where a.sno = b.sno),2) aver,
+	(select count(*) from student_grade b where a.sno = b.sno and score<![CDATA[<]]>60) failnum,
+	IFNULL((select SUM(credit) from course c where c.cno not in 
+	(select b.cno from student_grade b where a.sno = b.sno and b.score>=60)),0) credit_failed
+	from collegeinfopush.student_info a
+	having aver <![CDATA[<]]> 60;
    </select>
    
    <select id="getAllParVO" resultType="ParentVO">
@@ -100,6 +133,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <insert id="setMessage" parameterType="Message">
     insert into message(title,content,date,createrid,msg_id)
     values(#{msgpo.title},#{msgpo.content},#{msgpo.date},#{msgpo.createrid},#{msgpo.msg_id});
+   </insert>
+   
+   <insert id="addBatchMessage" parameterType="Message">
+   	 insert into message(title,content,date,createrid,msg_id)
+    values
+    <foreach collection="list" item="msgList" index="index" separator=",">
+     (
+     #{msgList.title},#{msgList.content},#{msgList.date},
+   	 #{msgList.createrid},#{msgList.msg_id}
+     )
+    </foreach>
+    on duplicate key update title=values(title),content=values(content),
+    date=values(date),createrid=values(createrid),msg_id=values(msg_id)
+   
    </insert>
    
    <insert id="addBatchStuInfo" parameterType="java.util.List">
